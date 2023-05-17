@@ -65,7 +65,7 @@ const Input = React.forwardRef((props, ref) => {
             : `${
                 props.inputValue === ""
                   ? "password is requried"
-                  : "password mut be alteast 6 characters"
+                  : "password must be alteast 6 characters"
               }`}
         </p>
       }

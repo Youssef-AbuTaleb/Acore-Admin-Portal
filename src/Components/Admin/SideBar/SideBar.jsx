@@ -12,6 +12,7 @@ const SideBar = () => {
         <img src={acoreLogo} alt="acore" />
         <FaChevronLeft />
       </div>
+
       <div className={classes.tagname}>
         <FaBook style={{ color: "#3C4041" }} />
         <span>Books</span>

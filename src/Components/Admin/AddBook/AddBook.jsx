@@ -79,8 +79,8 @@ const AddBook = (props) => {
         releaseDate: formatDate(data.releaseDate),
       };
       props.addBook(formattedData);
-      // navigate("/books-list")
-      // formik.resetForm();
+      formik.resetForm();
+      navigate("/books-list");
     },
   });
 

@@ -35,7 +35,7 @@ const BooksList = (props) => {
         }}
         paginator
         paginatorLeft
-        rows={5}
+        rows={6}
         emptyMessage="No Books found."
       >
         <Column field="title" header="Book Title"></Column>

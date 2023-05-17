@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import classes from "./BookDetails.module.css";
 import bookCover from "../../../assets/dead-astronauts.jpg";
@@ -58,7 +58,9 @@ const BookDetails = (props) => {
             <Button className={classes.delete} onClick={deleteConfirm}>
               Delete
             </Button>
-            <Button className={classes.edit}>Edit</Button>
+            <Link to={`/edit-book/${id}`}>
+              <Button className={classes.edit}>Edit</Button>
+            </Link>
           </div>
         </div>
         <div className={classes["lower-content"]}>

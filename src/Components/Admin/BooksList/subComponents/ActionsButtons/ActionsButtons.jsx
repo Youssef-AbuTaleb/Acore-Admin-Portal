@@ -29,9 +29,11 @@ const ActionsButtons = (props) => {
           <i className="pi pi-eye" style={{ color: "blue" }}></i>
         </button>
       </Link>
-      <button className={classes["action-btn"]}>
-        <i className="pi pi-pencil" style={{ color: "green" }}></i>
-      </button>
+      <Link to={`/edit-book/${props.rowData.id}`}>
+        <button className={classes["action-btn"]}>
+          <i className="pi pi-pencil" style={{ color: "green" }}></i>
+        </button>
+      </Link>
       <button className={classes["action-btn"]} onClick={deleteConfirm}>
         <i className="pi pi-trash" style={{ color: "red" }}></i>
       </button>

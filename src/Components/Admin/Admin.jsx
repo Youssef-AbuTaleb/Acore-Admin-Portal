@@ -27,7 +27,7 @@ const Admin = () => {
       price: 10,
       photo: "",
       version: "1.3",
-      older_versions: ["1.0", "1.1", "1.2"],
+      olderVersion: "version 1",
       edition: "21",
       isbn: "978-3-16-148410-0",
       releaseDate: "10-10-2010",
@@ -41,7 +41,7 @@ const Admin = () => {
       price: 20,
       photo: "",
       version: "1.1",
-      older_versions: ["1.0"],
+      olderVersion: "version 2",
       edition: "22",
       isbn: "978-3-16-148410-0",
       releaseDate: "10-10-2010",
@@ -55,7 +55,7 @@ const Admin = () => {
       price: 30,
       photo: "",
       version: "1.2",
-      older_versions: ["1.0"],
+      olderVersion: "version 3",
       edition: "23",
       isbn: "978-3-16-148410-0",
       releaseDate: "10-10-2010",
@@ -69,7 +69,7 @@ const Admin = () => {
       price: 40,
       photo: "",
       version: "1.2",
-      older_versions: ["1.0", "1.1"],
+      olderVersion: "version 4",
       edition: "24",
       isbn: "978-3-16-148410-0",
       releaseDate: "10-10-2010",
@@ -83,7 +83,7 @@ const Admin = () => {
       price: 50,
       photo: "",
       version: "1.2",
-      older_versions: ["1.0", "1.1"],
+      olderVersion: "version 5",
       edition: "25",
       isbn: "978-3-16-148410-0",
       releaseDate: "10-10-2010",
@@ -100,11 +100,21 @@ const Admin = () => {
   };
 
   const addBook = (newBook = {}) => {
-    console.log(newBook);
-    // setBooksState((prevState) => {
-    //   return prevState.push(newBook);
-    // });
+    newBook.id = String(Math.random());
+    setBooksState((prevState) => {
+      return [...prevState, newBook];
+    });
   };
+
+  const getBookById = (bookId) => {
+    return booksState.filter((book) => book.id === bookId);
+  };
+
+  const editBook = (bookId, newData) => {
+    deleteBook(bookId);
+    addBook(newData);
+  };
+
   return (
     <>
       <ConfirmDialog />
@@ -125,12 +135,12 @@ const Admin = () => {
                   <BooksList books={booksState} deleteBook={deleteBook} />
                 }
               />
-
-              {/* <Route path="/books-list" component={BooksList} /> */}
               <Route path="/add-book" element={<AddBook addBook={addBook} />} />
               <Route
                 path="/edit-book/:id"
-                element={<EditBook books={booksState} />}
+                element={
+                  <EditBook getBookById={getBookById} editBook={editBook} />
+                }
               />
               <Route
                 path="/book-details/:id"
