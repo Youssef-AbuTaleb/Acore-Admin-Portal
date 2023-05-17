@@ -1,11 +1,40 @@
 import React from "react";
 
+import { useParams, useNavigate } from "react-router-dom";
+
 import classes from "./BookDetails.module.css";
 import bookCover from "../../../assets/dead-astronauts.jpg";
 
+import { confirmDialog } from "primereact/confirmdialog";
+
 import Card from "../../UI/Card/Card";
 import Button from "../../UI/Button/Button";
-const BookDetails = () => {
+
+const BookDetails = (props) => {
+  const { id } = useParams();
+
+  const [bookData] = props.books.filter((book) => book.id === id);
+
+  const navigate = useNavigate();
+
+  const accept = () => {
+    props.deleteBook(id);
+    navigate("/books-list");
+  };
+  const reject = () => {};
+
+  const deleteConfirm = () => {
+    confirmDialog({
+      id: Math.random(),
+      message: "Do you want to delete this record?",
+      header: "Delete Confirmation",
+      icon: "pi pi-info-circle",
+      acceptClassName: "p-button-danger",
+      accept,
+      reject,
+    });
+  };
+
   return (
     <section>
       <h2 className="title">Book Details</h2>
@@ -13,7 +42,7 @@ const BookDetails = () => {
         <div className={classes["upper-content"]}>
           <img className={classes.cover} src={bookCover} alt="book cover" />
           <div className={classes["details-grp-1"]}>
-            <h3 className={classes["book-name"]}>Dead Astronauts</h3>
+            <h3 className={classes["book-name"]}>{bookData.title}</h3>
             <div className={classes["book-detail-container"]}>
               <div className={classes["book-detail"]}>
                 <p>478</p>
@@ -26,29 +55,29 @@ const BookDetails = () => {
             </div>
           </div>
           <div className={classes.actions}>
-            <Button className={classes.delete}>Delete</Button>
+            <Button className={classes.delete} onClick={deleteConfirm}>
+              Delete
+            </Button>
             <Button className={classes.edit}>Edit</Button>
           </div>
         </div>
         <div className={classes["lower-content"]}>
           <div>
             <p className={classes["name-release"]}>
-              <span>By Pauline Jeannette celine</span>
+              <span>By {bookData.author}</span>
               <span>|</span>
-              <span>27th March 2023</span>
+              <span>{bookData.releaseDate}</span>
             </p>
-            <p className={classes.price}>$ 1</p>
-            <p>ISBN: 232664164</p>
-            <p>Version: 1</p>
+            <p className={classes.price}>$ {bookData.price}</p>
+            <p>ISBN: {bookData.isbn}</p>
+            <p>Version: {bookData.version}</p>
             <p>
-              <span className={classes.category} s>
-                Medical gentics
-              </span>
+              <span className={classes.category}>{bookData.category}</span>
             </p>
           </div>
           <div>
             <h3>Brief</h3>
-            <p>Book brief should be added here</p>
+            <p>{bookData.brief}</p>
           </div>
         </div>
       </Card>

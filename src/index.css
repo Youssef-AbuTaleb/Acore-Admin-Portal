@@ -32,3 +32,7 @@ body {
 .p-dropdown .p-dropdown-trigger {
   background-color: #eff1fd !important;
 }
+
+.p-inputtext.p-inputtext-sm {
+  background-color: white !important;
+}
