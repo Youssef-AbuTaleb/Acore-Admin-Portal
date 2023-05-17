@@ -1,0 +1,51 @@
+.admin-header {
+  background-color: white;
+  padding: 0.7rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.admin-header h1 {
+  color: #335397;
+}
+
+.dropdown {
+  text-align: right;
+}
+.admin-header button.dropdown-btn {
+  color: inherit;
+  font-weight: 600;
+}
+
+.admin-header .drop-down-options {
+  position: absolute;
+  right: 5px;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  align-items: start;
+  background-color: white;
+  padding: 0.6rem;
+  margin: 5px;
+}
+.admin-header .drop-down-options.show {
+  display: flex;
+}
+
+.admin-header p {
+  color: black;
+}
+
+.admin-header button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: black;
+  font-weight: 600;
+}
+
+.admin-header button:hover {
+  color: rgb(98, 95, 95);
+}

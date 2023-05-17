@@ -1,0 +1,32 @@
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  background-color: white;
+  height: 100vh;
+  padding-top: 5px;
+}
+
+.logo-container {
+  padding: 5px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.logo-container img {
+  width: 60%;
+}
+
+.tagname {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  padding-left: 0.7rem;
+  border-right: 4px solid purple;
+  background-color: #eff1fd;
+}

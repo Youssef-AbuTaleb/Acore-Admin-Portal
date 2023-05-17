@@ -1,0 +1,63 @@
+.control {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.control label,
+.control input {
+  display: block;
+}
+
+.control input {
+  flex: 3;
+  font: inherit;
+  padding: 0.35rem 0.35rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  border: none;
+  background: #eff1fd;
+}
+
+.control input:focus {
+  outline: none;
+  border-color: #b1b0bf;
+  background: #c7cfff;
+}
+
+.control.invalid input {
+  border-color: red;
+  background: #fbdada;
+}
+
+.invalid-message {
+  visibility: hidden;
+  color: crimson;
+}
+.required-message {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
+
+.actions {
+  text-align: center;
+}
+
+.show-btn {
+  cursor: pointer;
+  position: absolute;
+  background-color: transparent;
+  color: #979797;
+  border: 0;
+  right: 15px;
+}
+@media (min-width: 768px) {
+  .control {
+    align-items: center;
+    flex-direction: row;
+  }
+}

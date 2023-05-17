@@ -1,0 +1,11 @@
+/* Global styling */
+.heading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.75rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
