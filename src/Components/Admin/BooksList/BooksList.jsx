@@ -21,9 +21,6 @@ const BooksList = (props) => {
       const searchTerm = searchValue.toLowerCase();
       const titleMatch = item.title.toLowerCase().includes(searchTerm);
       const authorMatch = item.author.toLowerCase().includes(searchTerm);
-      // console.log(searchTerm);
-      // console.log(titleMatch);
-      // console.log(authorMatch);
       return titleMatch || authorMatch;
     });
     console.log(filtered);

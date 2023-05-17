@@ -28,7 +28,6 @@ const emailReducer = (state, action) => {
     };
   }
   if (action.type === "INPUT_BLURRED") {
-    console.log("email blured");
     return {
       value: state.value,
       isValid: emailRegex.test(state.value),
@@ -44,7 +43,6 @@ const passwordReducer = (state, action) => {
     };
   }
   if (action.type === "INPUT_BLURRED") {
-    console.log("pass blured");
     return {
       value: state.value,
       isValid: state.value.trim().length >= 6,
