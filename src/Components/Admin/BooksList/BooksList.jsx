@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ActionsButtons from "./subComponents/ActionsButtons/ActionsButtons";
 import Button from "../../UI/Button/Button";
 import classes from "./BooksList.module.css";
@@ -9,6 +9,26 @@ import { InputText as InputTextPrime } from "primereact/inputtext";
 import { Link } from "react-router-dom";
 
 const BooksList = (props) => {
+  const [filteredData, setFilteredData] = useState(props.books);
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    handleSearch(); // Trigger search when searchValue changes
+  }, [searchValue]);
+
+  const handleSearch = () => {
+    const filtered = props.books.filter((item) => {
+      const searchTerm = searchValue.toLowerCase();
+      const titleMatch = item.title.toLowerCase().includes(searchTerm);
+      const authorMatch = item.author.toLowerCase().includes(searchTerm);
+      // console.log(searchTerm);
+      // console.log(titleMatch);
+      // console.log(authorMatch);
+      return titleMatch || authorMatch;
+    });
+    console.log(filtered);
+    setFilteredData(filtered);
+  };
   return (
     <section className={classes["books-list"]}>
       <h2 className="title">Books</h2>
@@ -16,7 +36,12 @@ const BooksList = (props) => {
         <span className="p-input-icon-right">
           <i className="pi pi-search" />
           <InputTextPrime
-            placeholder="Search"
+            onInput={(e) => {
+              const value = e.target.value;
+              setSearchValue(value);
+            }}
+            value={searchValue}
+            placeholder="Search by title or author"
             className="p-inputtext-sm"
             style={{ backgroundColor: "white" }}
           />
@@ -27,7 +52,7 @@ const BooksList = (props) => {
       </div>
       <DataTable
         className="datatable"
-        value={props.books}
+        value={filteredData}
         key={"id"}
         tableStyle={{
           fontSize: "1rem",
