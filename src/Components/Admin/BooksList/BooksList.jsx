@@ -33,6 +33,7 @@ const BooksList = ({ books, deleteBook }) => {
       <div className={classes["search-bar"]}>
         <span className="p-input-icon-right">
           <i className="pi pi-search" />
+          {/* Search Input */}
           <InputTextPrime
             onChange={handleSearch}
             value={searchValue}
@@ -41,6 +42,7 @@ const BooksList = ({ books, deleteBook }) => {
             style={{ backgroundColor: "white" }}
           />
         </span>
+        {/* AddBook button */}
         <Link to={"/add-book"}>
           <Button>Add Book</Button>
         </Link>
