@@ -48,6 +48,7 @@ const BooksList = (props) => {
         </Link>
       </div>
       <DataTable
+        sortField="category"
         className="datatable"
         value={filteredData}
         key={"id"}

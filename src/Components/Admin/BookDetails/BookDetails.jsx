@@ -79,7 +79,9 @@ const BookDetails = (props) => {
           </div>
           <div>
             <h3>Brief</h3>
-            <p>{bookData.brief}</p>
+            <p style={{ width: "35rem", lineBreak: "anywhere" }}>
+              {bookData.brief}
+            </p>
           </div>
         </div>
       </Card>

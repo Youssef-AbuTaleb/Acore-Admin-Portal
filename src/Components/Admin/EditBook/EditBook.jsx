@@ -66,7 +66,14 @@ const EditBook = (props) => {
       }
       if (!data.isbn) {
         errors.isbn = "ISBN is required.";
+      } else if (data.isbn.trim().length > 13) {
+        errors.isbn = "ISBN can not exceeds 13 characters.";
+      } else if (data.isbn.trim().length < 10) {
+        errors.isbn = "ISBN can not be less than 10 characters.";
+      } else if (!/^[0-9-]+$/.test(data.isbn.trim())) {
+        errors.isbn = "ISBN can contain numbers and dashes only.";
       }
+
       if (!data.brief) {
         errors.brief = "Brief is required.";
       }
