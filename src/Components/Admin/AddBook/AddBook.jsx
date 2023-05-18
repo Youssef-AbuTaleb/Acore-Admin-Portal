@@ -33,7 +33,7 @@ const AddBook = (props) => {
     initialValues: {
       title: "",
       author: "",
-      price: null,
+      price: "",
       version: "",
       edition: "",
       isbn: "",

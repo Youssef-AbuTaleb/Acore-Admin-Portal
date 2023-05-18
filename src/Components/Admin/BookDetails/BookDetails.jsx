@@ -13,7 +13,9 @@ import Button from "../../UI/Button/Button";
 const BookDetails = (props) => {
   const { id } = useParams();
 
-  const bookData = props.getBookById(id);
+  const [bookData] = props.getBookById(id);
+
+  console.log(bookData);
 
   const navigate = useNavigate();
 
