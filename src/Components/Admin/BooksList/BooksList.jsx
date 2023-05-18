@@ -8,24 +8,25 @@ import { Column } from "primereact/column";
 import { InputText as InputTextPrime } from "primereact/inputtext";
 import { Link } from "react-router-dom";
 
-const BooksList = (props) => {
-  const [filteredData, setFilteredData] = useState(props.books);
+const BooksList = ({ books, deleteBook }) => {
   const [searchValue, setSearchValue] = useState("");
+  const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
-    handleSearch(); // Trigger search when searchValue changes
-  }, [searchValue]);
+    // Filter the books based on the search value
+    const filtered = books.filter(
+      (book) =>
+        book.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFilteredBooks(filtered);
+  }, [searchValue, books]);
 
-  const handleSearch = () => {
-    const filtered = props.books.filter((item) => {
-      const searchTerm = searchValue.toLowerCase();
-      const titleMatch = item.title.toLowerCase().includes(searchTerm);
-      const authorMatch = item.author.toLowerCase().includes(searchTerm);
-      return titleMatch || authorMatch;
-    });
-    console.log(filtered);
-    setFilteredData(filtered);
+  // Event handler for search input
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
   };
+
   return (
     <section className={classes["books-list"]}>
       <h2 className="title">Books</h2>
@@ -33,10 +34,7 @@ const BooksList = (props) => {
         <span className="p-input-icon-right">
           <i className="pi pi-search" />
           <InputTextPrime
-            onInput={(e) => {
-              const value = e.target.value;
-              setSearchValue(value);
-            }}
+            onChange={handleSearch}
             value={searchValue}
             placeholder="Search by title or author"
             className="p-inputtext-sm"
@@ -48,9 +46,8 @@ const BooksList = (props) => {
         </Link>
       </div>
       <DataTable
-        sortField="category"
         className="datatable"
-        value={filteredData}
+        value={filteredBooks}
         key={"id"}
         tableStyle={{
           fontSize: "1rem",
@@ -70,7 +67,7 @@ const BooksList = (props) => {
           field="id"
           header="Actions"
           body={(rowData) => (
-            <ActionsButtons rowData={rowData} deleteBook={props.deleteBook} />
+            <ActionsButtons rowData={rowData} deleteBook={deleteBook} />
           )}
           style={{ minWidth: "120px" }}
         ></Column>

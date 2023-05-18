@@ -1,4 +1,4 @@
-/* General  classes */
+/* General classes */
 .flex-left-column {
   display: flex;
   flex-direction: column;
@@ -27,13 +27,14 @@
   margin-bottom: 1.5rem;
 }
 
-.login-form a:link {
+.login-form a:link,
+.login-form a:visited {
   text-decoration: none;
   color: rgb(91, 91, 235);
   margin-bottom: 1rem;
 }
+
 .login-form a:hover {
-  text-decoration: none;
   color: rgb(56, 56, 183);
 }
 

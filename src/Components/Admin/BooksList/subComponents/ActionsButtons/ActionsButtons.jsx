@@ -1,15 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import { confirmDialog } from "primereact/confirmdialog";
-
 import classes from "./ActionsButtons.module.css";
 
 const ActionsButtons = (props) => {
-  const accept = () => {
-    props.deleteBook(props.rowData.id);
-  };
-  const reject = () => {};
+  const { id } = props.rowData;
 
   const deleteConfirm = () => {
     confirmDialog({
@@ -18,8 +13,7 @@ const ActionsButtons = (props) => {
       header: "Delete Confirmation",
       icon: "pi pi-info-circle",
       acceptClassName: "p-button-danger",
-      accept,
-      reject,
+      accept: () => props.deleteBook(id),
     });
   };
   return (
