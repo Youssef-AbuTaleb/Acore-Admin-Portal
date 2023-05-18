@@ -15,8 +15,6 @@ const BookDetails = (props) => {
 
   const [bookData] = props.getBookById(id);
 
-  console.log(bookData);
-
   const navigate = useNavigate();
 
   const accept = () => {

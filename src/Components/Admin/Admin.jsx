@@ -10,8 +10,7 @@ import {
 import classes from "./Admin.module.css";
 import Header from "./Header/Header";
 import SideBar from "./SideBar/SideBar";
-import AddBook from "./AddBook/AddBook";
-import EditBook from "./EditBook/EditBook";
+import AddEditBook from "./AddEditBook/AddEditBook";
 import BooksList from "./BooksList/BooksList";
 import BookDetails from "./BookDetails/BookDetails";
 
@@ -130,11 +129,18 @@ const Admin = () => {
                   <BooksList books={booksState} deleteBook={deleteBook} />
                 }
               />
-              <Route path="/add-book" element={<AddBook addBook={addBook} />} />
+              <Route
+                path="/add-book"
+                element={<AddEditBook editMode={false} addBook={addBook} />}
+              />
               <Route
                 path="/edit-book/:id"
                 element={
-                  <EditBook getBookById={getBookById} editBook={editBook} />
+                  <AddEditBook
+                    editMode={true}
+                    getBookById={getBookById}
+                    editBook={editBook}
+                  />
                 }
               />
               <Route

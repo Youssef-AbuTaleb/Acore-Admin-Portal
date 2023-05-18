@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import classes from "./EditBook.module.css";
+import classes from "./AddEditBook.module.css";
 
 import Button from "../../UI/Button/Button";
 import Card from "../../UI/Card/Card";
@@ -15,26 +15,27 @@ import { classNames } from "primereact/utils";
 
 import { useFormik } from "formik";
 
-const EditBook = (props) => {
+const AddEditBook = (props) => {
+  // handle image data
   const fileInputRef = useRef(null);
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
   const imageInputChangeHandler = (event) => {
-    console.log(event);
     const file = event.target.files[0];
-    console.log(URL.createObjectURL(file));
     console.log(file.name);
   };
 
+  //if props.editMode is true get book data by id and populate it in formik intial values
+  //if props.editMode is false get add intial values for inputs in formik
+  let bookData;
+  let initialValues;
   const { id } = useParams();
-
   const navigate = useNavigate();
 
-  const [bookData] = props.getBookById(id);
-
-  const formik = useFormik({
-    initialValues: {
+  if (props.editMode) {
+    bookData = props.getBookById(id)[0];
+    initialValues = {
       title: bookData.title,
       author: bookData.author,
       price: +bookData.price,
@@ -45,7 +46,29 @@ const EditBook = (props) => {
       brief: bookData.brief,
       olderVersion: bookData.olderVersion,
       category: bookData.category,
+    };
+  } else {
+    initialValues = {
+      title: "",
+      author: "",
+      price: "",
+      version: "",
+      edition: "",
+      isbn: "",
+      releaseDate: "",
+      brief: "",
+      olderVersion: "",
+      category: "",
+    };
+  }
+
+  const formik = useFormik({
+    // populate values:
+    // - if in editMode take values from props.getBookById
+    initialValues: {
+      ...initialValues,
     },
+    //  handle formik validation cases for inputs
     validate: (data) => {
       let errors = {};
 
@@ -84,20 +107,27 @@ const EditBook = (props) => {
       return errors;
     },
 
+    //submit data if valid and navigate to books-list route
     onSubmit: (data) => {
-      console.log(data);
       let formattedData = {
         ...data,
         releaseDate: formatDate(data.releaseDate),
       };
-      props.editBook(id, formattedData);
+      if (props.editMode) {
+        props.editBook(id, formattedData);
+      } else {
+        props.addBook(formattedData);
+      }
+      formik.resetForm();
       navigate("/books-list");
     },
   });
 
+  // validation elements
   const isFormFieldInvalid = (name) =>
     !!(formik.touched[name] && formik.errors[name]);
 
+  // validation message
   const getFormErrorMessage = (name) => {
     return isFormFieldInvalid(name) ? (
       <small className="p-error">{formik.errors[name]}</small>
@@ -106,13 +136,13 @@ const EditBook = (props) => {
     );
   };
 
-  // function format date
+  // function format date to dd-mm-yyyy
   const formatDate = (date) => {
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = String(date.getFullYear());
 
-    return `${month}-${day}-${year}`;
+    return `${day}-${month}-${year}`;
   };
 
   //function convert formatted date to object date
@@ -126,7 +156,7 @@ const EditBook = (props) => {
   }
   return (
     <section>
-      <h2 className="title">Edit Book</h2>
+      <h2 className="title">{props.editMode ? "Edit Book" : "Add Book"}</h2>
       <Card>
         <form className={classes.form} onSubmit={formik.handleSubmit}>
           <div className={classes["left-content"]}>
@@ -275,7 +305,9 @@ const EditBook = (props) => {
                   Cancel
                 </Button>
               </Link>
-              <Button type="submit">Update</Button>
+              <Button type="submit">
+                {props.editMode ? "Update" : "Save"}
+              </Button>
             </div>
           </div>
         </form>
@@ -284,4 +316,4 @@ const EditBook = (props) => {
   );
 };
 
-export default EditBook;
+export default AddEditBook;
